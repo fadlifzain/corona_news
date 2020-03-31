@@ -83,7 +83,8 @@ const storeData = async (data) => {
         Promise.all(
             data.forEach((x) => {
                 return db.collection('articles-id').updateOne({
-                    slug: x.slug
+                    slug: x.slug,
+                    url: x.url
                 }, {
                     $set: x
                 }, {
