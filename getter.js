@@ -67,7 +67,7 @@ const getData = async (page = 1) => {
             slug = slug.replace(/\s+/g, '-').toLowerCase();
             article.slug = slug
 
-            if (!article.urlToImage) article.urlToImage = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fsemantic-ui.com%2Felements%2Fimage.html&psig=AOvVaw34WMDuKPmnFYObV8LQJ0VF&ust=1585715596447000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNCD94jxw-gCFQAAAAAdAAAAABAD"
+            if (!article.urlToImage) article.urlToImage = "https://semantic-ui.com/images/wireframe/image.png"
             if (!article.author) article.author = article.source.name;
             return article
         }).sort((x, y) => new Date(x.publishedAt) - new Date(y.publishedAt));
