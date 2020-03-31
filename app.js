@@ -13,7 +13,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.get('/:locale/get', async (req, res) => {
     try {
-        const result = await db.collection(`articles-${req.params.locale}`).find().limit(10).toArray();
+        const result = await db.collection(`articles-${req.params.locale}`)
+            .find()
+            .sort({'_id': -1})
+            .limit(15)
+            .toArray()
         res.send({
             status: "ok",
             content: result
@@ -34,6 +38,7 @@ app.get('/:locale/:id/next', async (req, res) => {
             .find({'_id': {
                 $gt: oid
             }})
+            .sort({'_id': -1})
             .limit(10)
             .toArray();
         res.send({
@@ -55,6 +60,7 @@ app.get('/:locale/:id/prev', async (req, res) => {
             .find({'_id': {
                 $lt: oid
             }})
+            .sort({'_id': -1})
             .limit(10)
             .toArray();
         res.send({

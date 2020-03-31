@@ -66,9 +66,8 @@ const getData = async (page = 1) => {
             slug = slug.replace(/[^a-zA-Z0-9 ]/g, "");
             slug = slug.replace(/\s+/g, '-').toLowerCase();
             article.slug = slug
-
             return article
-        });
+        }).sort((x, y) => new Date(x.publishedAt) - new Date(y.publishedAt));
         storeData(result);
     } catch (err) {
         console.log(err);
@@ -82,7 +81,7 @@ const storeData = async (data) => {
 
         const db = await config.mongoConnect();
         Promise.all(
-            data.map((x) => {
+            data.forEach((x) => {
                 return db.collection('articles-id').updateOne({
                     slug: x.slug
                 }, {
