@@ -38,7 +38,7 @@ app.get('/:locale/:id/next', async (req, res) => {
             .find({'_id': {
                 $gt: oid
             }})
-            .sort({'_id': -1})
+            .sort({'_id': 1})
             .limit(10)
             .toArray();
         res.send({
