@@ -46,7 +46,7 @@ const getData = async (page = 1) => {
     }
 }
 
-const getIdData =  (params) => {
+const getIdData =  async () => {
     const toDate = moment.tz(moment(), 'Asia/Jakarta').startOf('hour').format();
     const fromDate = moment(toDate).subtract(6, 'hour').startOf('hour').format();
     const baseUrl = process.env.NEWSAPI_BASE_URL;
@@ -58,7 +58,6 @@ const getIdData =  (params) => {
         to: toDate,
         apiKey: apiKey,
         language: 'id',
-        page: page,
         pageSize: 100
     });
 
@@ -82,7 +81,7 @@ const getIdData =  (params) => {
     storeDataId(result);
 }
 
-const getGlobalData =  (params) => {
+const getGlobalData = async () => {
     const toDate = moment.tz(moment(), 'Asia/Jakarta').startOf('hour').format();
     const fromDate = moment(toDate).subtract(6, 'hour').startOf('hour').format();
     const baseUrl = process.env.NEWSAPI_BASE_URL;
@@ -95,7 +94,6 @@ const getGlobalData =  (params) => {
         apiKey: apiKey,
         language: 'en',
         sortBy: 'popularity',
-        page: page,
         pageSize: 100
     });
 
@@ -126,7 +124,7 @@ const storeDataId = async (data) => {
 
         const db = await config.mongoConnect();
         Promise.all(
-            data.forEach((x) => {
+            data.map((x) => {
                 return db.collection('articles-id').updateOne({
                     slug: x.slug,
                     url: x.url
@@ -154,7 +152,7 @@ const storeDataGlobal = async (data) => {
 
         const db = await config.mongoConnect();
         Promise.all(
-            data.forEach((x) => {
+            data.map((x) => {
                 return db.collection('articles-en').updateOne({
                     slug: x.slug,
                     url: x.url
