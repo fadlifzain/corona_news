@@ -74,7 +74,8 @@ const getIdData =  async () => {
         slug = slug.replace(/\s+/g, '-').toLowerCase();
         article.slug = slug
 
-        if (!article.urlToImage) article.urlToImage = "https://semantic-ui.com/images/wireframe/image.png"
+        if (!article.content) article.content = articles.description || "";
+        if (!article.urlToImage) article.urlToImage = "https://semantic-ui.com/images/wireframe/image.png";
         if (!article.author) article.author = article.source.name;
         return article
     }).sort((x, y) => new Date(x.publishedAt) - new Date(y.publishedAt));
@@ -110,6 +111,7 @@ const getGlobalData = async () => {
         slug = slug.replace(/\s+/g, '-').toLowerCase();
         article.slug = slug
 
+        if (!article.content) article.content = articles.description || "";
         if (!article.urlToImage) article.urlToImage = "https://semantic-ui.com/images/wireframe/image.png"
         if (!article.author) article.author = article.source.name;
         return article
