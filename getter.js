@@ -112,6 +112,7 @@ const getGlobalData = async () => {
         article.slug = slug
 
         if (!article.content) article.content = articles.description || "";
+        article.content = article.content.replace(/<[^>]*>?/gm, '');
         if (!article.urlToImage) article.urlToImage = "https://semantic-ui.com/images/wireframe/image.png"
         if (!article.author) article.author = article.source.name;
         return article
